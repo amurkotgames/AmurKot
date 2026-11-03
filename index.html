@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Уведомление об инциденте</title>
+    <style>
+        :root {
+            --bg-color: #0f1117;
+            --card-bg: #1a1d24;
+            --text-color: #e1e4ea;
+            --text-muted: #9aa0a6;
+            --accent-color: #e55353;
+            --link-color: #4da3ff;
+            --border-color: #2d3139;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 800px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .header img {
+            max-width: 100%;
+            height: auto;
+            max-height: 80px;
+        }
+
+        .alert-badge {
+            display: inline-block;
+            background: rgba(229, 83, 83, 0.15);
+            color: var(--accent-color);
+            border: 1px solid rgba(229, 83, 83, 0.3);
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        h2 {
+            margin-top: 24px;
+            margin-bottom: 12px;
+            font-size: 1.3rem;
+            color: #fff;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        p {
+            margin: 0 0 16px 0;
+        }
+
+        ul {
+            margin: 0 0 20px 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 12px;
+        }
+
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .highlight-box {
+            background-color: rgba(255, 255, 255, 0.03);
+            border-left: 4px solid var(--link-color);
+            padding: 12px 16px;
+            margin-top: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <img src="https://allwebs.ru/images/2026/06/14/089a69dbe189c159910566e67e04faf0.png" alt="1000031991" border="0">
+        </div>
+
+        <div style="text-align: center;">
+            <div class="alert-badge">Внимание: технический сбой</div>
+        </div>
+
+        <p>Дело в том, что в ночь на 2 ноября 2026 года инфраструктура хостинга Beget подверглась мощнейшей кибератаке. Проблема затронула абсолютно все уровни архитектуры, из-за чего «легли» сотни тысяч сайтов, базы данных, почта, DNS-серверы и даже сама панель управления. 
+            [<a href="https://skillbox.ru/media/code/u-beget-proizoshyel-masshtabnyy-sboy-ne-rabotayut-sayty-i-virtualnye-servery/" target="_blank">1</a>], 
+            [<a href="https://habr.com/ru/news/1102974/" target="_blank">2</a>], 
+            [<a href="https://gogov.ru/news/941573" target="_blank">3</a>], 
+            [<a href="https://expert.ru/news/hosting-provayder-beget-soobschil-o-krupnom-sboe" target="_blank">4</a>], 
+            [<a href="https://www.fontanka.ru/2026/11/02/76739053/" target="_blank">5</a>]
+        </p>
+
+        <p>Компания официально объявила о возникновении обстоятельств непреодолимой силы (форс-мажора). 
+            [<a href="https://habr.com/ru/news/1102974/" target="_blank">1</a>]
+        </p>
+
+        <h2>Что конкретно произошло:</h2>
+
+        <ul>
+            <li>
+                <strong>Масштаб инцидента:</strong> Ошибка 502, которую вы видите, в данном случае вызвана не вашим сайтом, а тем, что у провайдера отключились или сбросились конфигурации внутренних серверов (бэкенда). 
+                [<a href="https://vc.ru/services/3232261-kiberataka-na-beget-massovyy-sboy-hostinga-i-forz-major" target="_blank">1</a>], 
+                [<a href="https://skillbox.ru/media/code/u-beget-proizoshyel-masshtabnyy-sboy-ne-rabotayut-sayty-i-virtualnye-servery/" target="_blank">2</a>]
+            </li>
+            <li>
+                <strong>Как восстанавливают:</strong> Инженерам Beget пришлось вручную перенастраивать сетевое оборудование и сервера прямо в дата-центрах. 
+                [<a href="https://expert.ru/news/hosting-provayder-beget-soobschil-o-krupnom-sboe" target="_blank">1</a>], 
+                [<a href="https://www.fontanka.ru/2026/11/02/76739053/" target="_blank">2</a>]
+            </li>
+            <li>
+                <strong>Текущий статус:</strong> Выделенные серверы без администрирования они подняли первыми. Сейчас специалисты поэтапно восстанавливают NS-серверы (чтобы домены снова начали направлять на сайты), почтовую систему и разворачивают данные из резервных копий. Поскольку объемы данных гигантские, процесс идет медленно. 
+                [<a href="https://habr.com/ru/news/1102444/" target="_blank">1</a>]
+            </li>
+        </ul>
+
+        <p>Повлиять на это со своей стороны вы никак не сможете — нужно только ждать, пока поддержка окончательно восстановит ваш сегмент сети. За актуальной информацией и таймингами лучше всего следить в официальном Telegram-канале хостинга <strong>@beget_official</strong>. 
+            [<a href="https://vc.ru/services/3232261-kiberataka-na-beget-massovyy-sboy-hostinga-i-forz-major" target="_blank">1</a>]
+        </p>
+
+        <div class="highlight-box">
+            <p style="margin: 0;">Скажите, заработал ли у вас доступ в саму панель управления Beget? Если панель открывается, мы можем проверить, доступны ли уже резервные копии вашего сайта, чтобы оценить ситуацию.</p>
+        </div>
+    </div>
+
+</body>
+</html>
