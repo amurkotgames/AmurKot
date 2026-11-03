@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Уведомление об инциденте</title>
+    <style>
+        :root {
+            --bg-color: #0f1117;
+            --card-bg: #1a1d24;
+            --text-color: #e1e4ea;
+            --text-muted: #9aa0a6;
+            --accent-color: #e55353;
+            --link-color: #4da3ff;
+            --btn-bg: #262a34;
+            --btn-hover: #323744;
+            --border-color: #2d3139;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 800px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header img {
+            max-width: 100%;
+            height: auto;
+            max-height: 80px;
+        }
+
+        /* Блок с кнопками */
+        .social-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--btn-bg);
+            color: var(--text-color);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            border: 1px solid var(--border-color);
+            transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--btn-hover);
+            border-color: var(--link-color);
+            text-decoration: none;
+            transform: translateY(-1px);
+        }
+
+        .alert-badge {
+            display: inline-block;
+            background: rgba(229, 83, 83, 0.15);
+            color: var(--accent-color);
+            border: 1px solid rgba(229, 83, 83, 0.3);
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        h2 {
+            margin-top: 24px;
+            margin-bottom: 12px;
+            font-size: 1.3rem;
+            color: #fff;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        p {
+            margin: 0 0 16px 0;
+        }
+
+        ul {
+            margin: 0 0 20px 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 12px;
+        }
+
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <img src="https://allwebs.ru/images/2026/06/14/089a69dbe189c159910566e67e04faf0.png" alt="Сбой инфраструктуры" border="0">
+        </div>
+
+        <!-- Кнопки под логотипом -->
+        <div class="social-buttons">
+            <a href="https://t.me/AmurK0T" target="_blank" class="btn">Telegram канал</a>
+            <a href="https://amurkot.pw/Sanya?join=2" target="_blank" class="btn">Канал в Sanya</a>
+            <a href="https://tiktok.com/@amurkot.developer" target="_blank" class="btn">TikTok</a>
+            <a href="https://www.youtube.com/@AmurKot_Developer" target="_blank" class="btn">YouTube</a>
+            <a href="https://www.roblox.com/share/g/369663837" target="_blank" class="btn">Roblox</a>
+            <a href="https://discord.gg/CWPv272xvg" target="_blank" class="btn">Discord</a>
+        </div>
+
+        <div style="text-align: center;">
+            <div class="alert-badge">Внимание: технический сбой на стороне хостинга</div>
+        </div>
+
+        <p>В ночь на 2 ноября 2026 года инфраструктура хостинг-провайдера подверглась масштабной кибератаке. Инцидент затронул основные уровни архитектуры сети, что привело к временной недоступности размещенных сайтов, баз данных, почтовых сервисов, DNS-серверов и внутренних панелей управления.</p>
+
+        <p>Компания-провайдер официально заявила о возникновении обстоятельств непреодолимой силы (форс-мажора) и направила все ресурсы на ликвидацию последствий.</p>
+
+        <h2>Что конкретно произошло:</h2>
+
+        <ul>
+            <li>
+                <strong>Масштаб инцидента:</strong> Ошибка 502 Bad Gateway вызвана глобальным сбоем сетевых конфигураций и бэкенд-серверов самого хостинга, а не внутренними ошибками вашего сайта.
+            </li>
+            <li>
+                <strong>Как восстанавливают:</strong> Инженерно-технические команды проводят ручную перенастройку сетевого оборудования и системных узлов непосредственно в дата-центрах.
+            </li>
+            <li>
+                <strong>Текущий статус:</strong> Автономные выделенные серверы уже возвращаются в штатный режим. В данный момент восстанавливается работа геораспределенных NS-серверов (для корректного направления доменов) и почтовых шлюзов. Параллельно разворачиваются резервные копии данных — из-за огромного объема информации процесс занимает длительное время.
+            </li>
+        </ul>
+
+        <p>Поскольку проблема носит внешний характер, исправить её со стороны владельцев сайтов невозможно. Остается дождаться завершения сервисных работ. За графиком восстановления и оперативными статусами можно следить в официальных информационных каналах технической поддержки провайдера.</p>
+    </div>
+
+</body>
+</html>
