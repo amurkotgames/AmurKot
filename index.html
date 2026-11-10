@@ -7,80 +7,155 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --bg-base: #08090c;
-            --bg-surface: #101218;
-            --bg-card: #181a24;
-            --bg-card-hover: #222634;
+            --bg-base: #0a0b0e;
+            --bg-surface: #12141a;
+            --bg-card: #191c24;
+            --bg-card-hover: #222632;
             --accent: #ff4757;
             --accent-glow: rgba(255, 71, 87, 0.4);
-            --text-main: #f3f4f6;
-            --text-muted: #7d8590;
-            --spotify: #1DB954;
-            --yandex: #ffcc00;
-            --vk: #0077FF;
+            --text-main: #f1f2f6;
+            --text-muted: #808793;
             --player-height: 90px;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
-        body { background: var(--bg-base); color: var(--text-main); height: 100vh; display: flex; overflow: hidden; }
-
-        aside {
-            width: 250px;
-            background: var(--bg-surface);
-            border-right: 1px solid rgba(255,255,255,0.06);
-            display: flex;
-            flex-direction: column;
-            padding: 24px 16px;
-            gap: 24px;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .logo { font-size: 1.3rem; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 10px; }
-        .logo i { color: var(--accent); font-size: 1.5rem; text-shadow: 0 0 10px var(--accent-glow); }
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+            user-select: none;
+        }
 
-        .nav-item {
+        /* Боковая панель */
+        aside {
+            width: 260px;
+            background: var(--bg-surface);
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 10;
+        }
+
+        .logo {
+            padding: 24px;
+            font-size: 1.3rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 12px 14px;
+            color: #fff;
+        }
+
+        .logo i {
+            color: var(--accent);
+            font-size: 1.6rem;
+            filter: drop-shadow(0 0 10px var(--accent-glow));
+        }
+
+        .nav-list {
+            list-style: none;
+            padding: 0 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .nav-item {
+            padding: 12px 16px;
             border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
             color: var(--text-muted);
             cursor: pointer;
             font-weight: 600;
-            transition: 0.2s;
+            transition: all 0.2s;
         }
-        .nav-item:hover, .nav-item.active { background: rgba(255,255,255,0.05); color: #fff; }
-        .nav-item.active { border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; }
 
-        main { flex: 1; display: flex; flex-direction: column; height: calc(100vh - var(--player-height)); overflow-y: auto; }
+        .nav-item:hover, .nav-item.active {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-item.active {
+            border-left: 3px solid var(--accent);
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Основной контент */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - var(--player-height));
+            overflow-y: auto;
+            position: relative;
+        }
 
         header {
             padding: 20px 32px;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 20px;
             position: sticky;
             top: 0;
-            background: rgba(8, 9, 12, 0.85);
-            backdrop-filter: blur(15px);
-            z-index: 10;
+            background: rgba(10, 11, 14, 0.85);
+            backdrop-filter: blur(20px);
+            z-index: 5;
         }
 
-        .search-box { position: relative; width: 420px; }
+        .search-box {
+            position: relative;
+            width: 450px;
+        }
+
         .search-box input {
             width: 100%;
             background: var(--bg-card);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 12px 16px 12px 42px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 12px 16px 12px 44px;
             border-radius: 25px;
             color: #fff;
             outline: none;
+            font-size: 0.95rem;
             transition: 0.3s;
         }
-        .search-box input:focus { border-color: var(--accent); box-shadow: 0 0 10px var(--accent-glow); }
-        .search-box i { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
 
-        .grid-container {
-            padding: 0 32px 32px;
+        .search-box input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .content-section {
+            padding: 24px 32px;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        /* Сетка треков */
+        .tracks-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 20px;
@@ -90,66 +165,223 @@
             background: var(--bg-card);
             padding: 14px;
             border-radius: 12px;
-            cursor: pointer;
             position: relative;
-            transition: 0.3s;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            border: 1px solid rgba(255, 255, 255, 0.02);
         }
-        .track-card:hover { transform: translateY(-4px); background: var(--bg-card-hover); }
 
-        .cover-box { position: relative; width: 100%; aspect-ratio: 1; border-radius: 8px; overflow: hidden; margin-bottom: 12px; }
-        .cover-box img { width: 100%; height: 100%; object-fit: cover; }
+        .track-card:hover {
+            background: var(--bg-card-hover);
+            transform: translateY(-4px);
+        }
+
+        .cover-wrap {
+            position: relative;
+            width: 100%;
+            padding-top: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+        }
+
+        .cover-wrap img {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover;
+        }
 
         .source-tag {
             position: absolute;
-            top: 8px;
-            right: 8px;
-            padding: 4px 6px;
-            border-radius: 6px;
-            font-size: 0.65rem;
+            top: 8px; right: 8px;
+            background: #ffcc00;
+            color: #000;
+            font-size: 0.7rem;
             font-weight: 800;
-            text-transform: uppercase;
+            padding: 3px 6px;
+            border-radius: 4px;
         }
-        .source-spotify { background: var(--spotify); color: #000; }
-        .source-yandex { background: var(--yandex); color: #000; }
-        .source-vk { background: var(--vk); color: #fff; }
 
-        .track-title { font-size: 0.95rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .track-artist { font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .play-btn-card {
+            position: absolute;
+            bottom: 8px; right: 8px;
+            width: 42px; height: 42px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: 0.2s ease-in-out;
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .track-card:hover .play-btn-card {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .track-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 4px;
+        }
+
+        .track-artist {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
         /* Нижний плеер */
-        .player {
+        .bottom-player {
             position: fixed;
             bottom: 0; left: 0; right: 0;
             height: var(--player-height);
-            background: var(--bg-surface);
-            border-top: 1px solid rgba(255,255,255,0.06);
+            background: rgba(18, 20, 26, 0.95);
+            backdrop-filter: blur(25px);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 28px;
+            padding: 0 24px;
             z-index: 100;
         }
 
-        .player-left { display: flex; align-items: center; gap: 14px; width: 25%; }
-        .player-cover { width: 52px; height: 52px; border-radius: 6px; object-fit: cover; }
-        .player-info h4 { font-size: 0.9rem; margin-bottom: 3px; }
-        .player-info p { font-size: 0.75rem; color: var(--text-muted); }
-
-        .player-center { display: flex; flex-direction: column; align-items: center; gap: 6px; width: 50%; }
-        .controls { display: flex; align-items: center; gap: 18px; }
-        .btn-ctrl { background: none; border: none; color: #fff; cursor: pointer; font-size: 1.1rem; }
-        .btn-play {
-            width: 38px; height: 38px; background: #fff; color: #000; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; font-size: 1rem;
+        .now-playing {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            width: 30%;
         }
-        
-        .progress-line-box { width: 100%; display: flex; align-items: center; gap: 10px; font-size: 0.75rem; color: var(--text-muted); }
-        .bar-bg { flex: 1; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; cursor: pointer; position: relative; }
-        .bar-fill { position: absolute; height: 100%; width: 0%; background: var(--accent); border-radius: 2px; }
 
-        .player-right { width: 25%; display: flex; justify-content: flex-end; align-items: center; gap: 8px; }
-        .volume-slider { width: 100px; -webkit-appearance: none; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; }
-        .volume-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 10px; height: 10px; background: #fff; border-radius: 50%; cursor: pointer; }
+        .now-cover {
+            width: 56px;
+            height: 56px;
+            border-radius: 6px;
+            object-fit: cover;
+            display: none;
+        }
+
+        .now-info h4 {
+            font-size: 0.95rem;
+            margin-bottom: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 250px;
+        }
+
+        .now-info p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 250px;
+        }
+
+        .player-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            width: 40%;
+        }
+
+        .btn-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .btn-controls button {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: 0.2s;
+        }
+
+        .btn-controls button:hover {
+            color: #fff;
+        }
+
+        .btn-controls .play-main {
+            width: 42px; height: 42px;
+            background: #fff;
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-controls .play-main:hover {
+            transform: scale(1.05);
+            color: #000;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-fill {
+            position: absolute;
+            left: 0; top: 0;
+            height: 100%;
+            background: var(--accent);
+            border-radius: 2px;
+            width: 0%;
+        }
+
+        .extra-controls {
+            width: 30%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .volume-slider {
+            width: 100px;
+            height: 4px;
+            -webkit-appearance: none;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px; height: 12px;
+            background: #fff;
+            border-radius: 50%;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -157,122 +389,135 @@
     <aside>
         <div class="logo">
             <i class="fa-solid fa-cat"></i>
-            <span>AmurKot</span>
+            <span>AmurKot MUSIC</span>
         </div>
-        <div class="nav-item active"><i class="fa-solid fa-house"></i> Главная</div>
-        <div class="nav-item"><i class="fa-solid fa-radio"></i> Потоки</div>
-        <div class="nav-item"><i class="fa-solid fa-heart"></i> Избранное</div>
+        <ul class="nav-list">
+            <li class="nav-item active"><i class="fa-solid fa-house"></i> Главная</li>
+            <li class="nav-item"><i class="fa-solid fa-compass"></i> Обзор</li>
+            <li class="nav-item"><i class="fa-solid fa-heart"></i> Моя медиатека</li>
+        </ul>
     </aside>
 
     <main>
         <header>
             <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="searchInput" placeholder="Поиск по Spotify, VK и Яндекс Музыке...">
+                <input type="text" id="searchInput" placeholder="Поиск артиста, альбома, трека...">
             </div>
-            <div id="statusIndicator" style="font-size: 0.8rem; color: var(--text-muted);">
-                <i class="fa-solid fa-circle-nodes" style="color: var(--accent);"></i> Сервер: https://amurkot.freedev.app
+            <div style="font-size: 0.85rem; color: #ffcc00; display: flex; align-items: center; gap: 8px;">
+                <i class="fa-brands fa-yandex"></i> Яндекс Музыка API подключен
             </div>
         </header>
 
-        <h2 style="padding: 20px 32px 10px; font-size: 1.2rem;">Поисковая выдача</h2>
-        <div class="grid-container" id="tracksGrid">
-            <!-- Треки подгружаются динамически -->
-        </div>
+        <section class="content-section">
+            <h2 class="section-title" id="sectionHeading">Тренды и поиск</h2>
+            <div class="tracks-grid" id="tracksGrid">
+                <!-- Карточки генерируются скриптом -->
+            </div>
+        </section>
     </main>
 
-    <!-- Нижняя панель плеера -->
-    <div class="player">
-        <div class="player-left">
-            <img id="trackCover" class="player-cover" src="https://via.placeholder.com/50" alt="">
-            <div class="player-info">
-                <h4 id="trackTitle">AmurKot MUSIC</h4>
-                <p id="trackArtist">Ожидание выбора трека</p>
+    <!-- Плеер -->
+    <div class="bottom-player">
+        <div class="now-playing">
+            <img src="" id="nowCover" class="now-cover" alt="Cover">
+            <div class="now-info">
+                <h4 id="nowTitle">Выберите трек</h4>
+                <p id="nowArtist">Сервер готов к воспроизведению</p>
             </div>
         </div>
 
-        <div class="player-center">
-            <div class="controls">
-                <button class="btn-ctrl" onclick="prevTrack()"><i class="fa-solid fa-backward-step"></i></button>
-                <button class="btn-ctrl btn-play" onclick="togglePlay()"><i class="fa-solid fa-play" id="playIcon"></i></button>
-                <button class="btn-ctrl" onclick="nextTrack()"><i class="fa-solid fa-forward-step"></i></button>
+        <div class="player-controls">
+            <div class="btn-controls">
+                <button onclick="prevTrack()"><i class="fa-solid fa-backward-step"></i></button>
+                <button class="play-main" onclick="togglePlay()"><i class="fa-solid fa-play" id="playIcon"></i></button>
+                <button onclick="nextTrack()"><i class="fa-solid fa-forward-step"></i></button>
             </div>
-            <div class="progress-line-box">
+            <div class="progress-bar-container">
                 <span id="currentTime">0:00</span>
-                <div class="bar-bg" id="progressBar" onclick="seek(event)">
-                    <div class="bar-fill" id="barFill"></div>
+                <div class="progress-bar" id="progressBar" onclick="seekTrack(event)">
+                    <div class="progress-fill" id="progressFill"></div>
                 </div>
-                <span id="totalTime">0:00</span>
+                <span id="totalDuration">0:00</span>
             </div>
         </div>
 
-        <div class="player-right">
-            <i class="fa-solid fa-volume-high" style="color: var(--text-muted); font-size: 0.85rem;"></i>
-            <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="0.7" oninput="setVolume(this.value)">
+        <div class="extra-controls">
+            <i class="fa-solid fa-volume-high" style="color: var(--text-muted);"></i>
+            <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="0.8" oninput="changeVolume(this.value)">
         </div>
     </div>
 
-    <audio id="audioStream"></audio>
+    <audio id="audioEngine"></audio>
 
     <script>
-        // Ссылка на ваш рабочий PHP-сервер
-        const SERVER_URL = 'https://amurkot.freedev.app/MUSICServer.php';
+        const API_SERVER = 'https://amurkot.freedev.app/MUSICServer.php';
+        const audio = document.getElementById('audioEngine');
+        
+        let trackList = [];
+        let currentIndex = -1;
+        let searchTimeout;
 
-        const audio = document.getElementById('audioStream');
-        let tracks = [];
-        let currentIdx = -1;
-        let searchDebounce;
-
-        // Автопоиск при вводе
+        // Поиск с дебаунсом (задержка 400мс)
         document.getElementById('searchInput').addEventListener('input', (e) => {
-            clearTimeout(searchDebounce);
-            const val = e.target.value.trim();
-            if (!val) return;
+            clearTimeout(searchTimeout);
+            const query = e.target.value.trim();
+            if (!query) return;
 
-            searchDebounce = setTimeout(() => {
-                fetchTracks(val);
-            }, 500);
+            searchTimeout = setTimeout(() => {
+                searchMusic(query);
+            }, 400);
         });
 
-        async function fetchTracks(query) {
+        async function searchMusic(query) {
+            document.getElementById('sectionHeading').innerText = `Поиск: ${query}`;
             try {
-                const res = await fetch(`${SERVER_URL}?action=search&q=${encodeURIComponent(query)}`);
-                tracks = await res.json();
-                renderTracks(tracks);
+                const res = await fetch(`${API_SERVER}?action=search&q=${encodeURIComponent(query)}`);
+                trackList = await res.json();
+                renderTracks(trackList);
             } catch (err) {
-                console.error("Ошибка связи с сервером AmurKot:", err);
+                console.error('Ошибка связи с сервером:', err);
             }
         }
 
-        function renderTracks(data) {
+        function renderTracks(tracks) {
             const grid = document.getElementById('tracksGrid');
             grid.innerHTML = '';
 
-            data.forEach((t, index) => {
+            if (!tracks.length) {
+                grid.innerHTML = '<p style="color: var(--text-muted);">Ничего не найдено.</p>';
+                return;
+            }
+
+            tracks.forEach((track, idx) => {
                 const card = document.createElement('div');
                 card.className = 'track-card';
-                card.onclick = () => playByIndex(index);
+                card.onclick = () => playTrack(idx);
                 card.innerHTML = `
-                    <div class="cover-box">
-                        <img src="${t.cover}" alt="">
-                        <span class="source-tag source-${t.source}">${t.source}</span>
+                    <div class="cover-wrap">
+                        <img src="${track.cover}" alt="${track.title}">
+                        <div class="source-tag">Яндекс</div>
+                        <div class="play-btn-card"><i class="fa-solid fa-play"></i></div>
                     </div>
-                    <div class="track-title">${t.title}</div>
-                    <div class="track-artist">${t.artist}</div>
+                    <div class="track-title">${track.title}</div>
+                    <div class="track-artist">${track.artist}</div>
                 `;
                 grid.appendChild(card);
             });
         }
 
-        function playByIndex(idx) {
-            currentIdx = idx;
-            const t = tracks[idx];
-            
-            document.getElementById('trackTitle').innerText = t.title;
-            document.getElementById('trackArtist').innerText = `${t.artist} [${t.source.toUpperCase()}]`;
-            document.getElementById('trackCover').src = t.cover;
+        function playTrack(idx) {
+            currentIndex = idx;
+            const track = trackList[currentIndex];
 
-            audio.src = t.stream;
+            document.getElementById('nowTitle').innerText = track.title;
+            document.getElementById('nowArtist').innerText = track.artist;
+            
+            const cover = document.getElementById('nowCover');
+            cover.src = track.cover;
+            cover.style.display = 'block';
+
+            audio.src = track.stream;
             audio.play();
             updatePlayBtn(true);
         }
@@ -288,45 +533,54 @@
             }
         }
 
-        function updatePlayBtn(playing) {
-            document.getElementById('playIcon').className = playing ? 'fa-solid fa-pause' : 'fa-solid fa-play';
-        }
-
-        function prevTrack() {
-            if (currentIdx > 0) playByIndex(currentIdx - 1);
+        function updatePlayBtn(isPlaying) {
+            document.getElementById('playIcon').className = isPlaying ? 'fa-solid fa-pause' : 'fa-solid fa-play';
         }
 
         function nextTrack() {
-            if (currentIdx < tracks.length - 1) playByIndex(currentIdx + 1);
+            if (currentIndex < trackList.length - 1) {
+                playTrack(currentIndex + 1);
+            }
         }
 
-        // Синхронизация времени
+        function prevTrack() {
+            if (currentIndex > 0) {
+                playTrack(currentIndex - 1);
+            }
+        }
+
+        // Синхронизация времени и таймлайна
         audio.addEventListener('timeupdate', () => {
             const cur = audio.currentTime;
             const dur = audio.duration || 0;
-            document.getElementById('barFill').style.width = `${(cur / dur) * 100}%`;
+            const percent = (cur / dur) * 100;
+            
+            document.getElementById('progressFill').style.width = `${percent}%`;
             document.getElementById('currentTime').innerText = formatTime(cur);
-            document.getElementById('totalTime').innerText = formatTime(dur);
+            document.getElementById('totalDuration').innerText = formatTime(dur);
         });
 
         audio.addEventListener('ended', nextTrack);
 
-        function seek(e) {
+        function seekTrack(e) {
             const bar = document.getElementById('progressBar');
-            const pos = (e.clientX - bar.getBoundingClientRect().left) / bar.offsetWidth;
-            audio.currentTime = pos * audio.duration;
+            const percent = (e.clientX - bar.getBoundingClientRect().left) / bar.offsetWidth;
+            audio.currentTime = percent * audio.duration;
         }
 
-        function setVolume(val) { audio.volume = val; }
+        function changeVolume(val) {
+            audio.volume = val;
+        }
 
         function formatTime(sec) {
-            let m = Math.floor(sec / 60);
-            let s = Math.floor(sec % 60);
+            if (isNaN(sec)) return '0:00';
+            const m = Math.floor(sec / 60);
+            const s = Math.floor(sec % 60);
             return `${m}:${s < 10 ? '0' : ''}${s}`;
         }
 
-        // Стартовый поиск при загрузке
-        fetchTracks('Phonk');
+        // Начальная загрузка при открытии сайта
+        searchMusic('MiyaGi');
     </script>
 </body>
 </html>
